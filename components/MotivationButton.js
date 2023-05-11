@@ -1,9 +1,9 @@
 import { View, Pressable, Text, StyleSheet } from "react-native";
 
-export default function MotivationButton() {
+export default function MotivationButton({ onPress }) {
     return (
         <View style={styles.buttonContainer}>
-            <Pressable style={styles.button} >
+            <Pressable style={styles.button} onPress={onPress}>
                 <Text style={styles.buttonText}>Motivate me!</Text>
             </Pressable>
         </View>
