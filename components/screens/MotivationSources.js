@@ -2,6 +2,8 @@ import { View, Text, StyleSheet, FlatList } from "react-native"
 
 import motivationSources from "../../db/motivationSources"
 import AddButton from "../AddButton"
+import AddSource from "./AddSource"
+import { useState } from "react"
 
 function ListItem({ title }) {
     return (
@@ -12,14 +14,17 @@ function ListItem({ title }) {
 }
 
 export default function MotivationSourcesScreen() {
+    const [isModalOpen, setIsModalOpen] = useState(false)
+
     return (
       <View style={styles.motivationSourcesScreenContainer}>
+        { isModalOpen ? (<AddSource onRequestClose={() => setIsModalOpen(false)} closeFunction={() => setIsModalOpen(false)} />) : (null) }
             <FlatList
             data={motivationSources}
             style={ { width: "100%" } }
             renderItem={({ item }) => <ListItem title={item} />}
             />
-            <AddButton /> 
+            <AddButton onPress={() => setIsModalOpen(true)}/> 
       </View>
     )
   }
