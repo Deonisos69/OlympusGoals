@@ -1,10 +1,12 @@
 import { create } from 'zustand'
-import { createInspirationInSqlite, getAllInspirations, updateInspiration } from '../drivers/sqliteDriver'
+import { createInspirationInSqlite, dropInspirations, getAllInspirations, initTable, updateInspiration } from '../drivers/sqliteDriver'
 import Inspiration from '../model/inspiration'
 
 // Create local database
 const localDB = create(set => ({
+  // Database
   inspirations: [],
+
   // Creates a new Inspiration in SQLite and in the local DB
   createInspiration: (inspiration) => {
     createInspirationInSqlite(inspiration.title, inspiration.type, inspiration.value)
@@ -16,6 +18,8 @@ const localDB = create(set => ({
       }))
     })
   },
+
+  // Loads all Inspirations from sqlite
   loadInspirationsFromSqlite: () => {
     getAllInspirations().then(res => {
       set(state => ({
@@ -23,6 +27,16 @@ const localDB = create(set => ({
       }))
     }).catch(err => console.log(err))
   },
+
+  // Deletes all Inspirations locally and from sqlite
+  dropDatabase: () => {
+    dropInspirations()
+    initTable()
+    set(state => ({
+      inspirations: []
+    }))
+  },
+
   // Updates the inspiration with a given ID
   updateInspirationById: async (id, inspiration) => {
     await updateInspiration(id, inspiration)

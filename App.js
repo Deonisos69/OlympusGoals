@@ -44,8 +44,6 @@ export default function App() {
         new Inspiration(1, "testTitle2", "quote", "wenn Spaniens Blüten")
         );
         createInspiration(new Inspiration(1, "testTitle3", "quote", "blühen"))
-        dropInspirations()
-    console.log("DB:", inspirationsDB)
     setIsLoading(false)
   }, []);
 

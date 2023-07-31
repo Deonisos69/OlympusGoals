@@ -3,9 +3,11 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 
 export default function FlatButton({ onPress, icon }) {
   return (
+    <View>
         <Pressable style={styles.AddButtonContainer} onPress={onPress} >
             <Ionicons name={icon}  />
         </Pressable>
+    </View>
   )
 }
 

@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View, Modal, TextInput } from "react-native";
 import AddButton from "../AddButton";
 import { useEffect, useState } from "react";
-import { showMessage, hideMessage } from "react-native-flash-message";
+import { showMessage } from "react-native-flash-message";
 import { Picker } from "@react-native-picker/picker";
 
 import { localDB } from "../../db/db";
