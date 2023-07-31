@@ -1,5 +1,5 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from "react-native";
 import { NavigationContainer } from "@react-navigation/native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -21,6 +21,8 @@ import {
   db,
 } from "./drivers/sqliteDriver";
 import { localDB } from "./db/db";
+import FlatButton from "./components/buttons/flatButton";
+import SettingsModal from "./components/modals/SettingsModal";
 
 const Tab = createBottomTabNavigator();
 
@@ -29,6 +31,8 @@ export default function App() {
   const inspirationsDB = localDB((state) => state.inspirations);
   const createInspiration = localDB((state) => state.createInspiration);
   const initialLoad = localDB((state) => state.loadInspirationsFromSqlite)
+
+  const [settingsModalOpen, setSettingsModalOpen] = useState(false);
 
   useEffect(() => {
     initTable()
@@ -61,27 +65,42 @@ export default function App() {
               case "Goals":
                 iconName = "star-half-outline";
                 break;
-
-              case "Motivation":
-                iconName = "rocket-outline";
-                break;
-
-              case "Inspirations":
-                iconName = "list-outline";
-                break;
-            }
-
-            // You can return any component that you like here!
-            return <Ionicons name={iconName} size={size} color={color} />;
+                
+                case "Motivation":
+                  iconName = "rocket-outline";
+                  break;
+                  
+                  case "Inspirations":
+                    iconName = "list-outline";
+                    break;
+                  }
+                  
+                  // You can return any component that you like here!
+                  return <Ionicons name={iconName} size={size} color={color} />;
+                },
+                tabBarActiveTintColor: "tomato",
+                tabBarInactiveTintColor: "gray",
+                headerRight: () => 
+                (<View style={{padding: 10}}>
+              <Pressable onPress={() => {
+                setSettingsModalOpen(true)
+              }}>
+                <Ionicons name="settings-outline" size={25} color={settingsModalOpen ? "tomato" : "grey"}/>
+              </Pressable>
+            </View>)
+          ,
+          tabBarStyle: { 
+            display: settingsModalOpen ? "none" : "flex"
           },
-          tabBarActiveTintColor: "tomato",
-          tabBarInactiveTintColor: "gray",
+          headerTransparent: "true"
+          
         })}
-      >
+        >
         <Tab.Screen name="Goals" component={GoalsScreen} />
         <Tab.Screen name="Motivation" component={MotivationScreen} />
         <Tab.Screen name="Inspirations" component={InspirationsScreen} />
       </Tab.Navigator>
+        {settingsModalOpen ? (<SettingsModal onRequestClose={() => setSettingsModalOpen(false)}/>) : null}
       <StatusBar style="auto" />
       <FlashMessage position="center" floating={true} />
     </NavigationContainer>
