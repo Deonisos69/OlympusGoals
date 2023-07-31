@@ -92,7 +92,6 @@ export default function App() {
           tabBarStyle: { 
             display: settingsModalOpen ? "none" : "flex"
           },
-          headerTransparent: "true"
           
         })}
         >
