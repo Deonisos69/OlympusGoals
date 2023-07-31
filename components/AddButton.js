@@ -1,11 +1,11 @@
 import { Pressable, StyleSheet, View } from 'react-native'
 import Ionicons from '@expo/vector-icons/Ionicons';
 
-export default function AddButton({ onPress, color }) {
+export default function AddButton({ onPress, color, icon }) {
   return (
     <View style={[styles.AddButtonContainer, {backgroundColor: color}]}>
         <Pressable onPress={onPress} >
-            <Ionicons name='add-outline' size={32} />
+            <Ionicons name={icon} size={32} />
         </Pressable>
     </View>
   )

@@ -1,18 +1,32 @@
 import { StyleSheet, Text, View, Modal, TextInput } from "react-native";
 import AddButton from "../AddButton";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { showMessage, hideMessage } from "react-native-flash-message";
 import { Picker } from "@react-native-picker/picker";
 
-import { createInspiration } from "../../drivers/dbDriver";
+import { localDB } from "../../db/db";
 
 import QuoteSource from "../inspirationTypes/Quote"
+import Inspiration from "../../model/inspiration";
 
-export default function AddSource({ onRequestClose, closeFunction }) {
+export default function AddSource({ onRequestClose, reloadFunction, inspiration }) {
   const [sourceTitle, setSourceTitle] = useState("");
   const [sourceValue, setSourceValue] = useState();
-  const [open, setOpen] = useState(false);
   const [sourceType, setSourceType] = useState("quote");
+
+  const inspirationsDB = localDB(state => state.inspirations)
+  const createInspiration = localDB(state => state.createInspiration)
+  const updateInspiration = localDB(state => state.updateInspirationById)
+  
+  
+  useEffect(() => {
+    // If a inspiration object is given, input the values of the inspiration object
+    if (inspiration) {
+      setSourceTitle(inspiration.title)
+      setSourceType(inspiration.type)
+      setSourceValue(inspiration.value)
+    }
+  }, [])
 
   let addSourceComponent = null;
   switch (sourceType) {
@@ -40,6 +54,24 @@ export default function AddSource({ onRequestClose, closeFunction }) {
     case "link":
       addSourceComponent = <View></View>;
       break;
+  }
+
+  function addInspiration() {
+    createInspiration(new Inspiration(1, sourceTitle, sourceType, sourceValue));
+    showMessage({
+      message: sourceType + " added successfully.",
+      type: "info",
+    });
+    onRequestClose();
+  }
+
+  function editInspiration() {
+    updateInspiration(inspiration.id, { title: sourceTitle, type: sourceType, value: sourceValue })
+    showMessage({
+      message: sourceType + " updated.",
+      type: "info",
+    });
+    onRequestClose();
   }
 
   return (
@@ -77,13 +109,10 @@ export default function AddSource({ onRequestClose, closeFunction }) {
         <AddButton
           color={"lightgreen"}
           onPress={() => {
-            createInspiration(sourceTitle, sourceType, sourceValue);
-            showMessage({
-              message: sourceType + " added successfully.",
-              type: "info",
-            });
-            closeFunction();
-          }}
+            inspiration ? editInspiration() : addInspiration()
+            }
+          }
+          icon={inspiration ? "checkmark-outline" : "add-outline"}
         />
       </Modal>
     </View>
