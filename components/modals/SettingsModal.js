@@ -1,17 +1,34 @@
 import { StyleSheet, Text, View, Modal, Pressable, Alert } from 'react-native'
-import FlatButton from '../buttons/flatButton'
 import { localDB } from '../../db/db'
 import { showMessage } from "react-native-flash-message";
+import { useEffect, useState } from 'react';
+import { TextInput } from 'react-native-gesture-handler';
+import { Picker } from '@react-native-picker/picker';
 
 
 export default function SettingsModal({onRequestClose}) {
   const dropDatabase = localDB(state => state.dropDatabase)
+  const setSettings = localDB(state => state.setSettings)
+  const initialNumberOfInspirationsInActiveMotivation = localDB(state => state.settings.numberOfInspirationsInActiveMotivation)
+
+  const [numberOfInspirationsInActiveMotivation, setNumberOfInspirationsInActiveMotivation] = useState(initialNumberOfInspirationsInActiveMotivation.toString())
+
+
+
+  useEffect(() => {
+    console.log(numberOfInspirationsInActiveMotivation)
+    if (numberOfInspirationsInActiveMotivation !== NaN && numberOfInspirationsInActiveMotivation !== "") {
+      let textToNumber = parseInt(numberOfInspirationsInActiveMotivation.trim())
+      setSettings({ numberOfInspirationsInActiveMotivation: textToNumber })
+    }
+  },[numberOfInspirationsInActiveMotivation])
 
   const areYouSureAlert = () => {
     Alert.alert(
       "Delete all Inspirations",
       "Are you sure? This will delete all your saved Inspirations PERMANENTLY.",
       [
+        {text: "Cancel"},
         {text: "Confirm", onPress: () => {
           dropDatabase()
           showMessage({
@@ -20,7 +37,6 @@ export default function SettingsModal({onRequestClose}) {
           });
           onRequestClose()
         }},
-        {text: "Cancel"}
       ]
     )
   }
@@ -32,6 +48,7 @@ export default function SettingsModal({onRequestClose}) {
         style={styles.SettingsModalContainer}
       >
         <Text style={{padding: 10, fontWeight: "bold", fontSize: 25}}>Settings</Text>
+
         <Pressable 
         style={styles.dropDatabaseButton}
         onPress={
@@ -40,6 +57,11 @@ export default function SettingsModal({onRequestClose}) {
           <Text>Delete all Inspirations</Text>
         </Pressable>
 
+        <View>
+          <Text>Number of Inspirations in motivation session</Text>
+          <TextInput value={numberOfInspirationsInActiveMotivation} onChangeText={setNumberOfInspirationsInActiveMotivation} ></TextInput>
+        </View>
+        
       </Modal>
     </View>
   )

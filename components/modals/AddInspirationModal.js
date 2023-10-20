@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Modal, TextInput } from "react-native";
+import { StyleSheet, Text, View, Modal, TextInput, Dimensions } from "react-native";
 import AddButton from "../AddButton";
 import { useEffect, useState } from "react";
 import { showMessage } from "react-native-flash-message";
@@ -17,6 +17,7 @@ export default function AddSource({ onRequestClose, reloadFunction, inspiration 
   const inspirationsDB = localDB(state => state.inspirations)
   const createInspiration = localDB(state => state.createInspiration)
   const updateInspiration = localDB(state => state.updateInspirationById)
+  const height = Dimensions.get("window").height
   
   
   useEffect(() => {
@@ -75,7 +76,7 @@ export default function AddSource({ onRequestClose, reloadFunction, inspiration 
   }
 
   return (
-    <View style={styles.AddSourceContainer}>
+    <View style={[styles.AddSourceContainer]}>
       <Modal
         animationType="slide"
         onRequestClose={onRequestClose}
@@ -104,8 +105,10 @@ export default function AddSource({ onRequestClose, reloadFunction, inspiration 
           }}
         />
         {addSourceComponent}
-        <Text style={styles.previewText}>Preview</Text>
-        <QuoteSource quote={sourceValue}/>
+        <View style={styles.preview}>
+          <Text style={styles.previewText}>Preview</Text>
+          <QuoteSource quote={sourceValue}/>
+        </View>
         <AddButton
           color={"lightgreen"}
           onPress={() => {
@@ -122,6 +125,7 @@ export default function AddSource({ onRequestClose, reloadFunction, inspiration 
 const styles = StyleSheet.create({
   AddSourceContainer: {
     alignItems: "center",
+    flex: 1
   },
   text: {
     textAlign: "center",
@@ -147,4 +151,7 @@ const styles = StyleSheet.create({
     height: 40,
     borderWidth: 1,
   },
+  preview: {
+    flex: 1
+  }
 });

@@ -15,13 +15,9 @@ import Inspiration from "./model/inspiration";
 import FlashMessage from "react-native-flash-message";
 import { useState, useEffect } from "react";
 import {
-  getAllInspirations,
   initTable,
-  dropInspirations,
-  db,
 } from "./drivers/sqliteDriver";
 import { localDB } from "./db/db";
-import FlatButton from "./components/buttons/flatButton";
 import SettingsModal from "./components/modals/SettingsModal";
 
 const Tab = createBottomTabNavigator();
@@ -37,13 +33,13 @@ export default function App() {
   useEffect(() => {
     initTable()
     initialLoad()
-    createInspiration(
-      new Inspiration(1, "testTitle", "quote", "Es grünt zu grün")
-      );
-      createInspiration(
-        new Inspiration(1, "testTitle2", "quote", "wenn Spaniens Blüten")
-        );
-        createInspiration(new Inspiration(1, "testTitle3", "quote", "blühen"))
+    // createInspiration(
+    //   new Inspiration(1, "testTitle", "quote", "Es grünt zu grün")
+    //   );
+    //   createInspiration(
+    //     new Inspiration(1, "testTitle2", "quote", "wenn Spaniens Blüten")
+    //     );
+    //     createInspiration(new Inspiration(1, "testTitle3", "quote", "blühen"))
     setIsLoading(false)
   }, []);
 

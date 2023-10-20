@@ -1,9 +1,10 @@
-import { StyleSheet, Text, View, Image, ScrollView } from 'react-native'
+import { StyleSheet, Text, View, Image, ScrollView, Dimensions } from 'react-native'
 const quotes = require("../../assets/double-quotes.png")
 
-export default function QuoteSource({ quote }) {
+export default function QuoteSource({ quote, key }) {
+  const width = Dimensions.get("window").width
   return (
-    <ScrollView>
+    <ScrollView key={key} style={{width, flex: 1, height: "100%"}}>
       <View style={styles.quoteSourceContainer}>
         <View style={styles.imageContainer}>
           <Image source={quotes} />
@@ -18,9 +19,9 @@ const styles = StyleSheet.create({
   quoteSourceContainer: {
     flexDirection: "row",
     justifyContent: "center",
-    alignItems: "flex-start",
-    paddingLeft: 60,
-    paddingRight: 60,
+    alignItems: "center",
+    flex: 1,
+    padding: 20
   },
   imageContainer: {
     flex: 1,
