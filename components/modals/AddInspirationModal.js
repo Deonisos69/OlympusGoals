@@ -8,6 +8,7 @@ import { localDB } from "../../db/db";
 
 import QuoteSource from "../inspirationTypes/Quote"
 import Inspiration from "../../model/inspiration";
+import { getInspirationComponent } from "../../functions/getInspirationComponent";
 
 export default function AddSource({ onRequestClose, reloadFunction, inspiration }) {
   const [sourceTitle, setSourceTitle] = useState("");
@@ -29,42 +30,6 @@ export default function AddSource({ onRequestClose, reloadFunction, inspiration 
     }
   }, [])
 
-  let addSourceComponent = null;
-  switch (sourceType) {
-    case "quote":
-      addSourceComponent = (
-        <View>
-          <Text style={styles.text}>Quote</Text>
-          <TextInput
-            style={styles.input}
-            value={sourceValue}
-            onChangeText={setSourceValue}
-          />
-        </View>
-      );
-      break;
-    case "local-video":
-      addSourceComponent = <View></View>;
-      break;
-    case "youtube-video":
-      addSourceComponent = 
-      <View>
-        <Text style={styles.text}>Youtube Video url</Text>
-        <TextInput
-          style={styles.input}
-          value={sourceValue}
-          onChangeText={setSourceValue}
-        />
-      </View>;
-      break;
-    case "picture":
-      addSourceComponent = <View></View>;
-      break;
-    case "link":
-      addSourceComponent = <View></View>;
-      break;
-  }
-
   function addInspiration() {
     createInspiration(new Inspiration(1, sourceTitle, sourceType, sourceValue));
     showMessage({
@@ -81,6 +46,57 @@ export default function AddSource({ onRequestClose, reloadFunction, inspiration 
       type: "info",
     });
     onRequestClose();
+  }
+
+  /**
+   * Returns a jsx component based on the inspiration type containing needed input elements for that type. 
+   * @param {String} type 
+   * @returns jsx component
+   */
+  function GetInputElementFromInspirationType({type}) {
+    switch (type) {
+      case "quote":
+        return (
+          <View>
+            <Text style={styles.text}>Quote</Text>
+            <TextInput style={styles.input} value={sourceValue} onChangeText={setSourceValue} />
+          </View>
+        )
+      case "youtube-video":
+        return (
+          <View>
+            <Text style={styles.text}>Video URL</Text>
+            <TextInput style={styles.input} value={sourceValue} onChangeText={setSourceValue} />
+          </View>
+        )
+      case "local-video":
+        return (
+          <View>
+            <Text style={styles.text}>Video</Text>
+            <TextInput style={styles.input} value={sourceValue} onChangeText={setSourceValue} />
+          </View>
+        )
+      case "picture":
+        return (
+          <View>
+            <Text style={styles.text}>Image</Text>
+            <TextInput style={styles.input} value={sourceValue} onChangeText={setSourceValue} />
+          </View>
+        )
+      case "link":
+        return (
+          <View>
+            <Text style={styles.text}>URL</Text>
+            <TextInput style={styles.input} value={sourceValue} onChangeText={setSourceValue} />
+          </View>
+        )
+      default:
+        return (
+          <View>
+            <Text style={styles.text}>ERROR: Type Unknown</Text>
+          </View>
+        )
+    }
   }
 
   return (
@@ -107,15 +123,15 @@ export default function AddSource({ onRequestClose, reloadFunction, inspiration 
           <Picker.Item label="Picture" value="picture" />
           <Picker.Item label="Link" value="link" />
         </Picker>
+        <GetInputElementFromInspirationType type={sourceType}/>
         <View style={{
             borderBottomColor: 'black',
             borderBottomWidth: StyleSheet.hairlineWidth,
           }}
         />
-        {addSourceComponent}
         <View style={styles.preview}>
           <Text style={styles.previewText}>Preview</Text>
-          <QuoteSource quote={sourceValue}/>
+          {getInspirationComponent(new Inspiration(1, sourceTitle, sourceType, sourceValue))}
         </View>
         <AddButton
           color={"lightgreen"}

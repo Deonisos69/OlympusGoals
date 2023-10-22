@@ -11,7 +11,7 @@ import { Dimensions } from 'react-native';
  */
 export default function YoutubeVideo({ inspiration }) {
   const [playing, setPlaying] = useState(false);
-  const videoId = inspiration.value.split("?v=")[1]
+  const videoId = inspiration.value ? inspiration.value.split("?v=")[1] : ""
   const width = Dimensions.get("window").width;
 
 
