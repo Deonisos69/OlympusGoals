@@ -59,7 +59,7 @@ export default function MotivationSourcesScreen() {
         />
       ) : null}
       {/* Check if DB is empty, if yes return empty View. If not return List of Inspirations */}
-      {inspirationsDB === [] ? (
+      {inspirationsDB.length == 0 ? (
         <View>
           <Text>Nothing here...</Text>
         </View>
@@ -70,7 +70,7 @@ export default function MotivationSourcesScreen() {
           style={{ width: "100%" }}
           renderItem={({ item }) => (
             <ListItem
-              title={item.value}
+              title={item.title === "" || item.title === " " ? item.value : item.title}
               onPress={() =>
               openEditModal(item)
               }
