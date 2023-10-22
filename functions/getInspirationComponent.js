@@ -1,4 +1,5 @@
 import QuoteSource from "../components/inspirationTypes/Quote";
+import YoutubeVideo from "../components/inspirationTypes/YoutubeVideo";
 import Inspiration from "../model/inspiration";
 
 /**
@@ -13,7 +14,7 @@ export function getInspirationComponent(inspiration) {
         case "local-video":
           return <View></View>;
         case "youtube-video":
-          return <View></View>;
+          return YoutubeVideo({inspiration});
         case "picture":
           return <View></View>;
         case "link":

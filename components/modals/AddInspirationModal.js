@@ -47,7 +47,15 @@ export default function AddSource({ onRequestClose, reloadFunction, inspiration 
       addSourceComponent = <View></View>;
       break;
     case "youtube-video":
-      addSourceComponent = <View></View>;
+      addSourceComponent = 
+      <View>
+        <Text style={styles.text}>Youtube Video url</Text>
+        <TextInput
+          style={styles.input}
+          value={sourceValue}
+          onChangeText={setSourceValue}
+        />
+      </View>;
       break;
     case "picture":
       addSourceComponent = <View></View>;

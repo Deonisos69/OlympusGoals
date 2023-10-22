@@ -13,10 +13,11 @@ export default function SettingsModal({onRequestClose}) {
 
   const [numberOfInspirationsInActiveMotivation, setNumberOfInspirationsInActiveMotivation] = useState(initialNumberOfInspirationsInActiveMotivation.toString())
 
+  // Refresh Inspirations Picker
+  const [refreshInspirationsInterval, setRefreshInspirationsInterval] = useState()
 
 
   useEffect(() => {
-    console.log(numberOfInspirationsInActiveMotivation)
     if (numberOfInspirationsInActiveMotivation !== NaN && numberOfInspirationsInActiveMotivation !== "") {
       let textToNumber = parseInt(numberOfInspirationsInActiveMotivation.trim())
       setSettings({ numberOfInspirationsInActiveMotivation: textToNumber })
@@ -40,6 +41,7 @@ export default function SettingsModal({onRequestClose}) {
       ]
     )
   }
+
   return (
     <View style={styles.SettingsModalContainer}>
       <Modal
@@ -61,7 +63,15 @@ export default function SettingsModal({onRequestClose}) {
           <Text>Number of Inspirations in motivation session</Text>
           <TextInput value={numberOfInspirationsInActiveMotivation} onChangeText={setNumberOfInspirationsInActiveMotivation} ></TextInput>
         </View>
-        
+        <View>
+          <Text>Refresh available Inspirations every</Text>
+          <Picker>
+          <Picker.Item label="day" value="day" />
+          <Picker.Item label="week" value="week" />
+          <Picker.Item label="2 weeks" value="2weeks" />
+          <Picker.Item label="month" value="month" />
+          </Picker>
+        </View>
       </Modal>
     </View>
   )

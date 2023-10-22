@@ -3,7 +3,6 @@ import { getInspirationComponent } from "../functions/getInspirationComponent";
 // import Carousel from "react-native-reanimated-carousel";
 
 export default function ActiveMotivation({ inspirations, onRequestClose }) {
-  const width = Dimensions.get("window").width;
 
   return (
     <View style={styles.ActiveMotivationContainer}>
