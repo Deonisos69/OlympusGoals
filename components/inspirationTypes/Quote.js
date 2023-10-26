@@ -7,10 +7,10 @@ const quotes = require("../../assets/double-quotes.png")
  * @param {any} key - the key of the item in the list.
  * @returns {React.ReactElement}
  */
-export default function QuoteSource({ quote, key }) {
+export default function QuoteSource({ quote }) {
   const width = Dimensions.get("window").width
   return (
-    <ScrollView key={key} style={{width, flex: 1, height: "100%"}}>
+    <ScrollView style={{width, flex: 1, height: "100%"}}>
       <View style={styles.quoteSourceContainer}>
         <View style={styles.imageContainer}>
           <Image source={quotes} />

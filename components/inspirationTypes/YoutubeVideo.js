@@ -22,7 +22,7 @@ export default function YoutubeVideo({ inspiration }) {
   }, []);
 
   return (
-    <View style={styles.YoutubeVideoContainer} key={inspiration.id}>
+    <View style={styles.YoutubeVideoContainer}>
       <YoutubePlayer
         height={300}
         width={width}

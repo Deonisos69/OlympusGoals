@@ -1,3 +1,4 @@
+import ImageInspiration from "../components/inspirationTypes/ImageInspiration";
 import QuoteSource from "../components/inspirationTypes/Quote";
 import YoutubeVideo from "../components/inspirationTypes/YoutubeVideo";
 import Inspiration from "../model/inspiration";
@@ -11,13 +12,13 @@ import { View } from "react-native";
 export function getInspirationComponent(inspiration) {
     switch (inspiration.type) {
         case "quote":
-          return <QuoteSource quote={inspiration.value} key={inspiration.key} />
+          return <QuoteSource quote={inspiration.value} key={inspiration.id} />
         case "local-video":
           return <View></View>;
         case "youtube-video":
-          return <YoutubeVideo inspiration={inspiration} />
+          return <YoutubeVideo inspiration={inspiration} key={inspiration.id} />
         case "picture":
-          return <View></View>;
+          return <ImageInspiration inspiration={inspiration} key={inspiration.id} />;
         case "link":
           return <View></View>;
         default:

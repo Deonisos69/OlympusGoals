@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Modal, TextInput, Dimensions } from "react-native";
+import { StyleSheet, Text, View, Modal, TextInput, Dimensions, Pressable } from "react-native";
 import AddButton from "../AddButton";
 import { useEffect, useState } from "react";
 import { showMessage } from "react-native-flash-message";
@@ -8,6 +8,10 @@ import { localDB } from "../../db/db";
 
 import Inspiration from "../../model/inspiration";
 import { getInspirationComponent } from "../../functions/getInspirationComponent";
+
+// Image
+import * as ImagePicker from 'expo-image-picker';
+import { Button } from "react-native-web";
 
 /**
  * Renders a Modal for creating new inspirations.
@@ -32,6 +36,20 @@ export default function AddSource({ onRequestClose, inspiration }) {
       setSourceValue(inspiration.value)
     }
   }, [])
+
+  const pickImage = async () => {
+    // No permissions request is necessary for launching the image library
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      setSourceValue(result.assets[0].uri)
+    }
+  };
 
   /**
    * Adds the inspiration locally and to the db.
@@ -87,9 +105,20 @@ export default function AddSource({ onRequestClose, inspiration }) {
         )
       case "picture":
         return (
-          <View>
+          <View style={{alignItems: "center"}}>
             <Text style={styles.text}>Image</Text>
-            <TextInput style={styles.input} value={sourceValue} onChangeText={setSourceValue} />
+            <Pressable onPress={pickImage} style={
+              {
+                backgroundColor: "#FFF",
+                height: 40,
+                width: 180,
+                margin: 10,
+                alignItems: "center",
+                justifyContent: "center",
+                borderColor: "#000000",
+                borderWidth: 1
+              }
+                } ><Text>Pick image</Text></Pressable>
           </View>
         )
       case "link":
