@@ -103,7 +103,7 @@ export default function AddSource({ onRequestClose, inspiration }) {
             <TextInput style={styles.input} value={sourceValue} onChangeText={setSourceValue} />
           </View>
         )
-      case "picture":
+      case "image":
         return (
           <View style={{alignItems: "center"}}>
             <Text style={styles.text}>Image</Text>
@@ -158,7 +158,7 @@ export default function AddSource({ onRequestClose, inspiration }) {
           <Picker.Item label="Quote" value="quote" />
           <Picker.Item label="Local video" value="local-video" />
           <Picker.Item label="Youtube video" value="youtube-video" />
-          <Picker.Item label="Picture" value="picture" />
+          <Picker.Item label="Image" value="image" />
           <Picker.Item label="Link" value="link" />
         </Picker>
         <GetInputElementFromInspirationType type={sourceType}/>

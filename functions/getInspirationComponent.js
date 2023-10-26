@@ -17,7 +17,7 @@ export function getInspirationComponent(inspiration) {
           return <View></View>;
         case "youtube-video":
           return <YoutubeVideo inspiration={inspiration} key={inspiration.id} />
-        case "picture":
+        case "image":
           return <ImageInspiration inspiration={inspiration} key={inspiration.id} />;
         case "link":
           return <View></View>;
