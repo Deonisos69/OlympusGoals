@@ -1,18 +1,27 @@
 import { View, StyleSheet } from "react-native";
 
 import MotivationButton from "../MotivateMeButton";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ActiveMotivation from "../ActiveMotivation";
 import { localDB } from "../../db/db";
 
 /**
  * Renders the screen in wich you can start a new motivation session.
+ * @param {*} navigation - Gets passed through the navigator. No need to pass it manually.
  * @returns {React.ReactElement}
  */
-export default function MotivationScreen() {
+export default function MotivationScreen({ navigation }) {
   const [isMotivationActive, setIsMotivationActive] = useState(false);
   const db = localDB((state) => state.inspirations);
   const numberOfInspirationsInActiveMotivation = localDB(state => state.settings.numberOfInspirationsInActiveMotivation)
+
+  useEffect(() => {
+    // When navigation tab is changed, stop the active motivation 
+    const navigationState = navigation.addListener('state', (e) => {
+      setIsMotivationActive(false)
+    });
+    return navigationState
+  }, [navigation])
 
   /**
    * Returns an array containing number of random inspirations
