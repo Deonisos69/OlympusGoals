@@ -13,14 +13,14 @@ export function getInspirationComponent(inspiration) {
     switch (inspiration.type) {
         case "quote":
           return <QuoteSource quote={inspiration.value} key={inspiration.id} />
-        case "local-video":
-          return <View></View>;
+        // case "local-video":
+        //   return <View></View>;
         case "youtube-video":
           return <YoutubeVideo inspiration={inspiration} key={inspiration.id} />
         case "image":
           return <ImageInspiration inspiration={inspiration} key={inspiration.id} />;
-        case "link":
-          return <View></View>;
+        // case "link":
+        //   return <View></View>;
         default:
           return <View><Text>Unknown inspiration type</Text></View>;
     }

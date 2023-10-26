@@ -96,13 +96,13 @@ export default function AddSource({ onRequestClose, inspiration }) {
             <TextInput style={styles.input} value={sourceValue} onChangeText={setSourceValue} />
           </View>
         )
-      case "local-video":
-        return (
-          <View>
-            <Text style={styles.text}>Video</Text>
-            <TextInput style={styles.input} value={sourceValue} onChangeText={setSourceValue} />
-          </View>
-        )
+      // case "local-video":
+      //   return (
+      //     <View>
+      //       <Text style={styles.text}>Video</Text>
+      //       <TextInput style={styles.input} value={sourceValue} onChangeText={setSourceValue} />
+      //     </View>
+      //   )
       case "image":
         return (
           <View style={{alignItems: "center"}}>
@@ -121,13 +121,13 @@ export default function AddSource({ onRequestClose, inspiration }) {
                 } ><Text>Pick image</Text></Pressable>
           </View>
         )
-      case "link":
-        return (
-          <View>
-            <Text style={styles.text}>URL</Text>
-            <TextInput style={styles.input} value={sourceValue} onChangeText={setSourceValue} />
-          </View>
-        )
+      // case "link":
+      //   return (
+      //     <View>
+      //       <Text style={styles.text}>URL</Text>
+      //       <TextInput style={styles.input} value={sourceValue} onChangeText={setSourceValue} />
+      //     </View>
+      //   )
       default:
         return (
           <View>
@@ -156,10 +156,10 @@ export default function AddSource({ onRequestClose, inspiration }) {
           prompt="What is the type of this motivation source?"
         >
           <Picker.Item label="Quote" value="quote" />
-          <Picker.Item label="Local video" value="local-video" />
+          {/* <Picker.Item label="Local video" value="local-video" /> */}
           <Picker.Item label="Youtube video" value="youtube-video" />
           <Picker.Item label="Image" value="image" />
-          <Picker.Item label="Link" value="link" />
+          {/* <Picker.Item label="Link" value="link" /> */}
         </Picker>
         <GetInputElementFromInspirationType type={sourceType}/>
         <View style={{
