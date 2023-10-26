@@ -5,7 +5,11 @@ import { useEffect, useState } from 'react';
 import { TextInput } from 'react-native-gesture-handler';
 import { Picker } from '@react-native-picker/picker';
 
-
+/**
+ * Renders a Modal displaying the settings for the app.
+ * @param {Function} onRequestClose - Callbackfunction that closes the modal.
+ * @returns {React.ReactElement}
+ */
 export default function SettingsModal({onRequestClose}) {
   const dropDatabase = localDB(state => state.dropDatabase)
   const setSettings = localDB(state => state.setSettings)
@@ -24,6 +28,9 @@ export default function SettingsModal({onRequestClose}) {
     }
   },[numberOfInspirationsInActiveMotivation])
 
+  /**
+   * When called, opens a popup wich asks to confirm the deletion of inspirations.
+   */
   const areYouSureAlert = () => {
     Alert.alert(
       "Delete all Inspirations",

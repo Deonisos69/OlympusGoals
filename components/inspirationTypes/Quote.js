@@ -1,6 +1,12 @@
 import { StyleSheet, Text, View, Image, ScrollView, Dimensions } from 'react-native'
 const quotes = require("../../assets/double-quotes.png")
 
+/**
+ * Renders a Quote Inspiration. 
+ * @param {String} quote - the Quote that gets displayed. 
+ * @param {any} key - the key of the item in the list.
+ * @returns {React.ReactElement}
+ */
 export default function QuoteSource({ quote, key }) {
   const width = Dimensions.get("window").width
   return (

@@ -1,6 +1,13 @@
 import { Pressable, StyleSheet, View } from 'react-native'
 import Ionicons from '@expo/vector-icons/Ionicons';
 
+/**
+ * Renders a round button with an icon inside it in a color of your choosing.
+ * @param {Function} onPress 
+ * @param {String} color 
+ * @param {String} icon 
+ * @returns {React.ReactElement}
+ */
 export default function AddButton({ onPress, color, icon }) {
   return (
     <View style={[styles.AddButtonContainer, {backgroundColor: color}]}>

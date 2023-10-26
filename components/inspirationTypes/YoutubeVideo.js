@@ -5,9 +5,9 @@ import YoutubePlayer from "react-native-youtube-iframe";
 import { Dimensions } from 'react-native';
 
 /**
- * Takes an inspiration and returns a react youtube iframe component
- * @param {Inspiration} inspiration 
- * @returns React Component containing an iframe with the video
+ * Takes an inspiration and returns a react youtube iframe component.
+ * @param {Inspiration} inspiration
+ * @returns {React.ReactElement}
  */
 export default function YoutubeVideo({ inspiration }) {
   const [playing, setPlaying] = useState(false);

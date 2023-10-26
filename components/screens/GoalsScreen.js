@@ -1,5 +1,9 @@
 import { View, Text, StyleSheet } from "react-native"
 
+/**
+ * Renders the goals screen in wich you can choose the current set of inspirations.
+ * @returns {React.ReactElement}
+ */
 export default function GoalsScreen() {
     return (
       <View style={styles.goalsScreenContainer}>

@@ -1,7 +1,13 @@
-import { StyleSheet, Text, View, Pressable, ScrollView, Dimensions } from "react-native";
+import { StyleSheet, Text, View, Pressable, ScrollView } from "react-native";
 import { getInspirationComponent } from "../functions/getInspirationComponent";
-// import Carousel from "react-native-reanimated-carousel";
+import Inspiration from "../model/inspiration";
 
+/**
+ * Renders the motivation session.
+ * @param {Array<Inspiration>} inspirations - Array of Inspirations to be included in the motivation session.
+ * @param {Function} onRequestClose - Function that's called to close the motivation.
+ * @returns {React.ReactElement}
+ */
 export default function ActiveMotivation({ inspirations, onRequestClose }) {
 
   return (
@@ -9,7 +15,6 @@ export default function ActiveMotivation({ inspirations, onRequestClose }) {
       <ScrollView
       horizontal
       pagingEnabled
-      // showsHorizontalScrollIndicator={true}
       contentContainerStyle={styles.otherContainer}
       centerContent={true}
 

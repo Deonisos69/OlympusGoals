@@ -1,3 +1,6 @@
+/**
+ * Inspiration.
+ */
 export default class Inspiration {
     constructor(id, title, type, value) {
         this.id = id

@@ -1,5 +1,10 @@
 import { View, Pressable, Text, StyleSheet } from "react-native";
 
+/**
+ * Renders the motivation button.
+ * @param {Function} onPress - Function that's called, when the button is pressed.
+ * @returns {React.ReactElement}
+ */
 export default function MotivationButton({ onPress }) {
     return (
         <View style={styles.buttonContainer}>

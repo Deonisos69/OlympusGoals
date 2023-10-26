@@ -6,23 +6,26 @@ import { Picker } from "@react-native-picker/picker";
 
 import { localDB } from "../../db/db";
 
-import QuoteSource from "../inspirationTypes/Quote"
 import Inspiration from "../../model/inspiration";
 import { getInspirationComponent } from "../../functions/getInspirationComponent";
 
-export default function AddSource({ onRequestClose, reloadFunction, inspiration }) {
+/**
+ * Renders a Modal for creating new inspirations.
+ * @param {Function} onRequestClose - callbackfunction to close the modal.
+ * @param {Inspiration} [inspiration] - (optional) inspiration to be edited.
+ * @returns {React.ReactElement}
+ */
+export default function AddSource({ onRequestClose, inspiration }) {
   const [sourceTitle, setSourceTitle] = useState("");
   const [sourceValue, setSourceValue] = useState();
   const [sourceType, setSourceType] = useState("quote");
 
-  const inspirationsDB = localDB(state => state.inspirations)
   const createInspiration = localDB(state => state.createInspiration)
   const updateInspiration = localDB(state => state.updateInspirationById)
-  const height = Dimensions.get("window").height
   
   
   useEffect(() => {
-    // If a inspiration object is given, input the values of the inspiration object
+    // If a inspiration object is given, input the values of the inspiration object.
     if (inspiration) {
       setSourceTitle(inspiration.title)
       setSourceType(inspiration.type)
@@ -30,6 +33,9 @@ export default function AddSource({ onRequestClose, reloadFunction, inspiration 
     }
   }, [])
 
+  /**
+   * Adds the inspiration locally and to the db.
+   */
   function addInspiration() {
     createInspiration(new Inspiration(1, sourceTitle, sourceType, sourceValue));
     showMessage({
@@ -39,6 +45,9 @@ export default function AddSource({ onRequestClose, reloadFunction, inspiration 
     onRequestClose();
   }
 
+  /**
+   * Updates the inspiration locally and in the db.
+   */
   function editInspiration() {
     updateInspiration(inspiration.id, { title: sourceTitle, type: sourceType, value: sourceValue })
     showMessage({
@@ -50,8 +59,8 @@ export default function AddSource({ onRequestClose, reloadFunction, inspiration 
 
   /**
    * Returns a jsx component based on the inspiration type containing needed input elements for that type. 
-   * @param {String} type 
-   * @returns jsx component
+   * @param {String} type - type of inspiration.
+   * @returns React component.
    */
   function GetInputElementFromInspirationType({type}) {
     switch (type) {

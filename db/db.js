@@ -7,7 +7,10 @@ const localDB = create(set => ({
   // Database
   inspirations: [],
 
-  // Creates a new Inspiration in SQLite and in the local DB
+  /**
+   * Creates a new Inspiration in SQLite and in the local DB
+   * @param {Inspiration} inspiration 
+   */
   createInspiration: (inspiration) => {
     createInspirationInSqlite(inspiration.title, inspiration.type, inspiration.value)
     .then(res => {
@@ -19,7 +22,9 @@ const localDB = create(set => ({
     })
   },
 
-  // Loads all Inspirations from sqlite
+  /**
+   * Loads all Inspirations from sqlite
+   */ 
   loadInspirationsFromSqlite: () => {
     getAllInspirations()
     .then(res => {
@@ -29,7 +34,9 @@ const localDB = create(set => ({
     }).catch(err => console.log(err))
   },
 
-  // Deletes all Inspirations locally and from sqlite
+  /**
+   * Deletes all Inspirations locally and from sqlite
+   */
   dropDatabase: () => {
     dropInspirations()
     initTable()
@@ -38,7 +45,11 @@ const localDB = create(set => ({
     }))
   },
 
-  // Updates the inspiration with a given ID
+  /**
+   * Updates the inspiration with a given ID
+   * @param {Number} id 
+   * @param {Inspiration} inspiration 
+   */
   updateInspirationById: async (id, inspiration) => {
     await updateInspiration(id, inspiration)
     set(state => ( { 
@@ -52,9 +63,13 @@ const localDB = create(set => ({
     numberOfInspirationsInActiveMotivation: 4
   },
 
-  // Updates the Settings. Takes an Object as an input.
+  /**
+   * Updates the Settings. Takes an Object as an input.
+   * @param {*} setting
+   * Available Settings:
+   *  numberOfInspirationsInActiveMotivation
+   */
   setSettings: (setting) => {
-    console.log(setting)
       set(state => {
         const newSettings = { ...state.settings }
         for (const [key, value] of Object.entries(setting)) {

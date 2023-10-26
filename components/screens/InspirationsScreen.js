@@ -11,6 +11,12 @@ import AddButton from "../AddButton";
 import AddInspirationModal from "../modals/AddInspirationModal";
 import { useEffect, useState } from "react";
 
+/**
+ * Renders an inspiration list item.
+ * @param {String} title - The title of a list item.
+ * @param {Function} onPress - Function that's called, when the button is pressed.
+ * @returns {React.ReactElement}
+ */
 function ListItem({ title, onPress }) {
   return (
     <TouchableOpacity onPress={onPress}>
@@ -21,7 +27,10 @@ function ListItem({ title, onPress }) {
   );
 }
 
-
+/**
+ * Renders the Inspirations Screen.
+ * @returns {React.ReactElement}
+ */
 export default function MotivationSourcesScreen() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isModalEditOpen, setIsModalEditOpen] = useState(false);
@@ -33,6 +42,10 @@ export default function MotivationSourcesScreen() {
   const inspirationsDB = localDB(state => state.inspirations)
 
 
+  /**
+   * 
+   * @param {*} item 
+   */
   function openEditModal(item) {
     setInspiration({
       id: item.id,

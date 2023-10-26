@@ -4,8 +4,11 @@ import MotivationButton from "../MotivateMeButton";
 import { useState } from "react";
 import ActiveMotivation from "../ActiveMotivation";
 import { localDB } from "../../db/db";
-import plog from "../../utility/prettylog";
 
+/**
+ * Renders the screen in wich you can start a new motivation session.
+ * @returns {React.ReactElement}
+ */
 export default function MotivationScreen() {
   const [isMotivationActive, setIsMotivationActive] = useState(false);
   const db = localDB((state) => state.inspirations);
@@ -14,7 +17,7 @@ export default function MotivationScreen() {
   /**
    * Returns an array containing number of random inspirations
    * @param {Number} number 
-   * @returns an array containing random inspirations
+   * @returns {Array<Number>}
    */
   function getNumberOfRandomInspirations(number) {
     const result = [];

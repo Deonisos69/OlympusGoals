@@ -6,7 +6,7 @@ import { View } from "react-native";
 /**
  * Takes an inspiration and returns a react component for display purposes
  * @param {Inspiration} inspiration 
- * @returns React Component
+ * @returns {React.ReactElement}
  */
 export function getInspirationComponent(inspiration) {
     switch (inspiration.type) {
